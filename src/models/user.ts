@@ -15,6 +15,7 @@ const UserSchema = new Schema({
   age: {
     type: Number,
     required: true,
+    min: [8, "Age must be 8 or older"],
   },
   password: {
     type: String,
