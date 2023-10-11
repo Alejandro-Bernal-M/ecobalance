@@ -9,13 +9,13 @@ const UserSchema = new Schema({
     type: String,
     index: true,
     unique: true,
-    required: [true, "Email is required"],
+    required: [true, "El correo es requerido"],
     match: /.+\@.+\..+/,
   },
   age: {
     type: Number,
     required: true,
-    min: [8, "Age must be 8 or older"],
+    min: [8, "Debe ser mayor de 8 años"],
   },
   password: {
     type: String,
