@@ -2,11 +2,14 @@
 import styles from './register.module.css';
 import { FormEvent } from 'react';
 import toast from 'react-hot-toast'; 
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation'
 
 function RegisterPage() {
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
@@ -26,19 +29,45 @@ function RegisterPage() {
       return;
     }
     
-    axios.post('/api/auth/signup', {
+  try {
+    const signupResponse = await axios.post('/api/auth/signup', {
       fullname,
       age,
       email,
-      password,
-      password_confirmation
-    }).then(() => {
-      toast.success('Usuario registrado con éxito');
-    }).catch((err) => {
-      toast.error(err.response.data.message);
-    })
+      password
+    });
 
+    if(signupResponse?.data?.error) {
+      console.log(signupResponse.data.error)
+      toast.error(signupResponse.data.error);
+      return;
+    }
+
+    const res = await signIn('credentials', {
+      email,
+      password,
+      redirect: false
+    });
+    
+    if(res?.error) {
+      toast.error(res.error);
+      return;
+    }
+    
+    if(res?.ok) {
+      router.push('/dashboard');
+      toast.success('Usuario registrado con éxito');
+    }
+
+  } catch (error) {
+    if(error instanceof AxiosError){
+      console.log(error)
+      let message = error.response?.data.message.split(':');
+      toast.error(message[message.length - 1] || 'Ha ocurrido un error');
+      return;
+    }
   }
+}
   
   return (
     <div>
