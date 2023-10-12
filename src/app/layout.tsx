@@ -1,7 +1,7 @@
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
-import Providers from './providers'
-
+import Providers from './Providers'
+import Navbar from '@/components/Navbar'
 
 export const metadata = {
   title: 'Create Next App',
@@ -18,6 +18,7 @@ export default function RootLayout({
       <body >
         <Toaster />
         <Providers>
+          <Navbar />
           {children}
         </Providers>
         </body>
