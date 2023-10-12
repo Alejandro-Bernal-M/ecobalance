@@ -33,7 +33,7 @@ function LoginPage() {
     }
     
     if(res?.ok) {
-      router.push('/dashboard');
+      router.push('/dashboard/profile');
       toast.success('Inicio de sesión exitoso');
     }
 
