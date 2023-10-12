@@ -4,6 +4,8 @@ import { connectDB } from "@/libs/mongodb";
 import User from "@/models/user";
 import bcrypt from "bcryptjs";
 import toast from "react-hot-toast";
+import { AnyObject } from "mongoose";
+import { AnyARecord } from "dns";
 
 const handler = NextAuth({
   providers: [
@@ -47,13 +49,16 @@ const handler = NextAuth({
       return token;
     },
     session({session, token}){
-      session.user = token.user as any;
+      const user = {
+        ...token.user as any,
+        name: (token.user as any).fullname,
+      }
+      session.user = user;
       return session;
     },
   },
   pages: {
     signIn: '/login',
-    // signOut: '/logout',
   }
 })
 
