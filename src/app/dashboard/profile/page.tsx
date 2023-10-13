@@ -30,7 +30,7 @@ function Dashboard() {
   }, [session, dispatch]);
   
   useEffect(() => {
-
+    //function to order en descending order  (most recent first)
     function orderByDate(dateA:Date, dateB:Date){
       if (dateA > dateB) {
         return -1;
@@ -40,7 +40,7 @@ function Dashboard() {
       }
       return 0;
     }
-    
+
     const waterArray = invoices
     .filter((invoice: invoiceType) => invoice.service === 'water')
     .sort((a: invoiceType, b: invoiceType) => orderByDate(a.date, b.date));
