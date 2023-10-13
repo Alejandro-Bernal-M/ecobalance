@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Date } from 'mongoose';
 
-type invoiceType = {
+export type invoiceType = {
   _id: string,
-  date: string,
+  date: Date,
   consumption: number,
-  servide: 'water' | 'gas' | 'electricity',
+  service: 'water' | 'gas' | 'electricity',
   amount: number,
   user: {},
 }

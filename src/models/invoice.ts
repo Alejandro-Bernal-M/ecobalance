@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 const InvoiceSchema = new Schema({
-  date: String,
+  date: Date,
   consumption: Number,
   service: {
     type: String,
