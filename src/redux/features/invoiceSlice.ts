@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import { Date } from 'mongoose';
+import toast from 'react-hot-toast';
 
 export type invoiceType = {
   _id: string,
@@ -32,6 +33,30 @@ export const getInvoices = createAsyncThunk(
   }
 )
 
+export const addInvoice = createAsyncThunk(
+  'invoice/addInvoice',
+  async (body: any) => {
+    try {
+      const response = await axios.post('/api/invoices', body)
+      if(response.status == 200){
+        toast.success('Factura Registrada');
+        
+      }else{
+        toast.error('Error registrando factura')
+      }
+      return response.data
+      
+    } catch (error) {
+      if(error instanceof AxiosError){
+        console.log(error)
+        let message = error.response?.data.message.split(':');
+        toast.error(message[message.length - 1] || 'Ha ocurrido un error');
+        return;
+      }
+    }
+  }
+)
+
 const invoiceSlice = createSlice({
   name: 'invoice',
   initialState,
@@ -51,8 +76,22 @@ const invoiceSlice = createSlice({
       state.error = 'Error fetching invoices';
     }
     )
+    builder.addCase(addInvoice.pending, (state) => {
+      state.loading = true;
+    })
+    builder.addCase(addInvoice.fulfilled, (state, action) => {
+      const newInvoice = action.payload.savedInvoice;
+      const invoices = [
+        ...state.invoices,
+        newInvoice
+      ]
+      state.invoices = invoices;
+      state.loading = false;
+    })
+    builder.addCase(addInvoice.rejected, (state, action) => {
+      state.error = 'Error guardando la factura'
+    } )
   }
-  
 })
 
 export default invoiceSlice.reducer;

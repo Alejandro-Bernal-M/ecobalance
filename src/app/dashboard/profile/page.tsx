@@ -8,11 +8,13 @@ import {ThunkDispatch} from "@reduxjs/toolkit";
 import { invoiceType } from "@/redux/features/invoiceSlice";
 import { Date } from "mongoose";
 import InvoiceComponent from "@/components/InvoiceComponent";
+import AddInvoiceForm from "@/components/AddInvoiceForm";
 
 function Dashboard() {
   const { data: session } = useSession();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const invoices = useSelector((store: any) => store.invoice.invoices);
+  const loading = useSelector((store: any) => store.invoice.loading);
 
   const [waterInvoices, setWaterInvoices] = useState<invoiceType[]>([]);
   const [gasInvoices, setGasInvoices] = useState<invoiceType[]>([]);
@@ -42,7 +44,7 @@ function Dashboard() {
       return 0;
     }
 
-    const waterArray = invoices
+   if(!loading){ const waterArray = invoices
     .filter((invoice: invoiceType) => invoice.service === 'water')
     .sort((a: invoiceType, b: invoiceType) => orderByDate(a.date, b.date));
     setWaterInvoices(waterArray);
@@ -55,7 +57,7 @@ function Dashboard() {
     const electricityArray = invoices
     .filter((invoice:invoiceType) => invoice.service == 'electricity')
     .sort((a: invoiceType, b: invoiceType) => orderByDate(a.date, b.date));
-    setElectricityInvoices(electricityArray);
+    setElectricityInvoices(electricityArray);}
 
   }, [invoices])
 
@@ -72,6 +74,8 @@ function Dashboard() {
          },
            null, 2)}
       </pre>
+
+      <AddInvoiceForm user={session?.user} />
       
       <h2>Registros de Agua</h2>
       { waterInvoices.length > 0 ? (waterInvoices.map((invoice: invoiceType) => (
