@@ -6,6 +6,7 @@ import { getInvoices } from "@/redux/features/invoiceSlice";
 import { useEffect, useState } from "react";
 import {ThunkDispatch} from "@reduxjs/toolkit";
 import { invoiceType } from "@/redux/features/invoiceSlice";
+import { Date } from "mongoose";
 
 function Dashboard() {
   const { data: session } = useSession();
@@ -29,11 +30,30 @@ function Dashboard() {
   }, [session, dispatch]);
   
   useEffect(() => {
-    const waterArray = invoices.filter((invoice:invoiceType) => invoice.service == 'water')
+
+    function orderByDate(dateA:Date, dateB:Date){
+      if (dateA > dateB) {
+        return -1;
+      }
+      if (dateA < dateB) {
+        return 1;
+      }
+      return 0;
+    }
+    
+    const waterArray = invoices
+    .filter((invoice: invoiceType) => invoice.service === 'water')
+    .sort((a: invoiceType, b: invoiceType) => orderByDate(a.date, b.date));
     setWaterInvoices(waterArray);
-    const gasArray = invoices.filter((invoice:invoiceType) => invoice.service == 'gas')
+
+    const gasArray = invoices
+    .filter((invoice:invoiceType) => invoice.service == 'gas')
+    .sort((a: invoiceType, b: invoiceType) => orderByDate(a.date, b.date));
     setGasInvoices(gasArray);
-    const electricityArray = invoices.filter((invoice:invoiceType) => invoice.service == 'electricity')
+
+    const electricityArray = invoices
+    .filter((invoice:invoiceType) => invoice.service == 'electricity')
+    .sort((a: invoiceType, b: invoiceType) => orderByDate(a.date, b.date));
     setElectricityInvoices(electricityArray);
 
   }, [invoices])
