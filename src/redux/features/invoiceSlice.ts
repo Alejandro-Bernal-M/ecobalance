@@ -8,7 +8,7 @@ export type invoiceType = {
   consumption: number,
   service: 'water' | 'gas' | 'electricity',
   amount: number,
-  user: {},
+  user?: {},
 }
 
 type initialStateType = {

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import {ThunkDispatch} from "@reduxjs/toolkit";
 import { invoiceType } from "@/redux/features/invoiceSlice";
 import { Date } from "mongoose";
+import InvoiceComponent from "@/components/InvoiceComponent";
 
 function Dashboard() {
   const { data: session } = useSession();
@@ -74,32 +75,38 @@ function Dashboard() {
       
       <h2>Registros de Agua</h2>
       { waterInvoices.length > 0 ? (waterInvoices.map((invoice: invoiceType) => (
-        <div key={invoice._id}>
-          <p>servicio: {invoice.service}</p>
-          <p>pago: {invoice.amount}</p>
-          <p>consumo: {invoice.consumption}</p>
-          <p>fecha: {invoice.date.toString()}</p>
-        </div>
+        <InvoiceComponent
+          key={invoice._id}
+          consumption={invoice.consumption}
+          date={invoice.date}
+          service={invoice.service}
+          amount={invoice.amount} 
+          _id ={invoice._id}
+        />
       ))) : <p>Sin registros</p> }
 
       <h2>Registros de Gas</h2>
       { gasInvoices.length > 0 ? (gasInvoices.map((invoice: invoiceType) => (
-        <div key={invoice._id}>
-          <p>servicio: {invoice.service}</p>
-          <p>pago: {invoice.amount}</p>
-          <p>consumo: {invoice.consumption}</p>
-          <p>fecha: {invoice.date.toString()}</p>
-        </div>
+        <InvoiceComponent
+          key={invoice._id}
+          consumption={invoice.consumption}
+          date={invoice.date}
+          service={invoice.service}
+          amount={invoice.amount} 
+          _id ={invoice._id}
+        />
       ))):  <p>Sin registros</p> }
 
       <h2>Registros de Electricidad</h2>
       {electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
-        <div key={invoice._id}>
-          <p>servicio: {invoice.service}</p>
-          <p>pago: {invoice.amount}</p>
-          <p>consumo: {invoice.consumption}</p>
-          <p>fecha: {invoice.date.toString()}</p>
-        </div>
+        <InvoiceComponent
+          key={invoice._id}
+          consumption={invoice.consumption}
+          date={invoice.date}
+          service={invoice.service}
+          amount={invoice.amount} 
+          _id ={invoice._id}
+        />
       ))): <p>Sin registros</p>}
     </div>
     )
