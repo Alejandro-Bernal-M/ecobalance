@@ -63,6 +63,29 @@ export const addAlert = createAsyncThunk(
   }
 )
 
+export const deleteAlert = createAsyncThunk(
+  'alert/deleteAlert',
+  async (alert_id : string) => {
+    try {
+      const response = await axios.delete(`/api/alerts?alert_id=${alert_id}`);
+      if(response.status == 200){
+        toast.success('Alerta eliminada');
+      }else {
+        toast.error('Error eliminando alerta');
+      }
+
+      return response.data
+    } catch (error) {
+      if(error instanceof AxiosError){
+        console.log(error);
+        let message = error.response?.data.message.split(':');
+        toast.error(message[message.length - 1] || 'Ha ocurrido un error');
+        return;
+      }
+    }
+  }
+)
+
 const alertSlice = createSlice({
   name: 'alert',
   initialState,
@@ -94,6 +117,18 @@ const alertSlice = createSlice({
     builder.addCase(addAlert.rejected, (state) => {
       state.loading = false;
       state.error = 'Error guardando alerta';
+    })
+    builder.addCase(deleteAlert.pending, (state) => {
+      state.loading = true;
+    })
+    builder.addCase(deleteAlert.fulfilled, (state, action) => {
+      const deletedAlert = action.payload.deletedAlert
+      const newArray = state.alerts.filter((alert) => alert._id != deletedAlert._id)
+      state.alerts = newArray;
+      state.loading = false;
+    })
+    builder.addCase(deleteAlert.rejected, (state) => {
+      state.error = 'Error eliminando alerta';
     })
   }
 })
