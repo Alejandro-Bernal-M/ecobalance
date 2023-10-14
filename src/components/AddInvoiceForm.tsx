@@ -9,7 +9,6 @@ function AddInvoiceForm({user}: any) {
 
   const handleSubmit = async(e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('submit')
     const formData = new FormData(e.currentTarget);
     
     const service = formData.get('service-select');
@@ -26,7 +25,6 @@ function AddInvoiceForm({user}: any) {
       date,
       "user_id": user._id
     }
-    console.log(body)
     e.currentTarget.reset();
     
     dispatch(addInvoice(body))
