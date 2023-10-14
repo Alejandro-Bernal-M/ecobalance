@@ -40,3 +40,24 @@ export async function POST(request: Request){
     }
   }
 }
+
+export async function DELETE(request: Request){
+  const url = new URL(request.url);
+  const alert_id = url.searchParams.get('alert_id');
+
+  try {
+    await connectDB();
+    const deletedAlert = await Alert.findByIdAndDelete(alert_id);
+
+    if(deletedAlert){
+      return NextResponse.json({message: "alert deleted", deletedAlert});
+    }else {
+      return NextResponse.json({message: "alert not found"}, {status: 404});
+    }
+  } catch (error) {
+    if(error instanceof Error){
+      console.log(error);
+      return NextResponse.json({message: error.message}, {status: 500})
+    }
+  }
+}
