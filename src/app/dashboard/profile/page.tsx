@@ -12,6 +12,7 @@ import { Date } from "mongoose";
 import InvoiceComponent from "@/components/InvoiceComponent";
 import AddInvoiceForm from "@/components/AddInvoiceForm";
 import AddAlertForm from "@/components/AddAlertForm";
+import { deleteAlert } from "@/redux/features/alertSlice";
 
 function Dashboard() {
   const { data: session } = useSession();
@@ -90,6 +91,10 @@ function Dashboard() {
     }
   }, [alerts])
 
+  const handleAlertDelete = (alert_id: string) => {
+    dispatch(deleteAlert(alert_id));
+  }
+
   return (
     <div>
       <h1>Perfil</h1>
@@ -113,6 +118,7 @@ function Dashboard() {
       { waterAlerts.length > 0 ? (waterAlerts.map((alert: alertType) => (
         <div key={alert._id}>
           <p> alerta en: {alert.amount}</p>
+          <button onClick={() => handleAlertDelete(alert._id)}>Eliminar alerta</button>
         </div >
       ))):  <p>Sin alerta para agua</p>}
 
@@ -132,6 +138,7 @@ function Dashboard() {
       { gasAlerts.length > 0 ? (gasAlerts.map((alert: alertType) => (
         <div key={alert._id}>
           <p> alerta en: {alert.amount}</p>
+          <button onClick={() => handleAlertDelete(alert._id)}>Eliminar alerta</button>
         </div >
       ))):  <p>Sin alerta para gas</p>}
 
@@ -151,6 +158,7 @@ function Dashboard() {
       { electricityAlerts.length > 0 ? (electricityAlerts.map((alert: alertType) => (
         <div key={alert._id}>
           <p> alerta en: {alert.amount}</p>
+          <button onClick={() => handleAlertDelete(alert._id)}>Eliminar alerta</button>
         </div >
       ))):  <p>Sin alerta para electricidad</p>}
 
