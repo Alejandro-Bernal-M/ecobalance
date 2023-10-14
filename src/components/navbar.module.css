@@ -1,0 +1,45 @@
+.nav{
+  display: flex;
+  width: 100%;
+  height: auto;
+  justify-content: space-between;
+  padding: 0 var(--space-1);
+  align-items: center;
+  min-height: 60px;
+  background-color: var(--color-1);
+  box-shadow: 0 0px 25px 0px var(--color-2);
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: var(--font-size-2);
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--color-2);
+}
+
+.ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  color: var(--color-2);
+  align-items: center;
+}
+
+.list_item {
+  list-style: none;
+}
+
+.list_item a {
+  text-decoration: none;
+}
+
+.btn {
+  padding: 5px var(--space-0);
+  border-radius: 6px;
+  color: var(--color-4);
+  background-color: var(--color-2);
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-1);
+}

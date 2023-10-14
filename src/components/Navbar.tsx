@@ -2,33 +2,34 @@
 import { useSession } from "next-auth/react"
 import { signOut } from "next-auth/react"
 import Link from "next/link";
+import styles from './navbar.module.css';
 
 function Navbar() {
 
   const { data: session } = useSession();
   return (
-    <nav>
+    <nav className={styles.nav}>
       <Link  href="/">
       Home
       </Link>
 
-      <ul>
+      <ul className={styles.ul}>
           {session ? (
             <>
-              <li>
+              <li className={styles.list_item}>
                 <Link href="/dashboard/profile">Perfil</Link>
               </li>
-              <button onClick= {async () =>  await signOut()}>
+              <button className={styles.btn} onClick= {async () =>  await signOut()}>
                 Cerrar sesión
               </button>
             </>
           ):
           (
             <>
-              <li>
+              <li className={styles.list_item}>
                 <Link href="/login">Iniciar sesión</Link>
               </li>
-              <li>
+              <li className={styles.list_item}>
                 <Link href="/register">Registrarse</Link>
               </li>
             </>

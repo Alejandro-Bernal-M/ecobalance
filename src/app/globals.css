@@ -1,6 +1,21 @@
+:root {
+  --color-1 : #7ae340;
+  --color-2: rgb(11, 24, 4);
+  --color-3: #313131;
+  --color-4: #e5e5e5;
+  --space-0: 0.8rem;
+  --space-1: 1rem;
+  --space-2: 1.5rem;
+  --space-3: 2rem;
+  --font-size-1: 1rem;
+  --font-size-2: 1.2rem;
+  --font-family : inter;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: black;
+  /* color: var(--color-2); */
+  font-family: var(--font-family) ;
 }
