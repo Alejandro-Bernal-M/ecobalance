@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 export type alertType = {
   amount: number,
-  user_id: string,
+  user_id?: string,
   service: 'water' | 'gas' | 'electricity',
   _id: string
 }
