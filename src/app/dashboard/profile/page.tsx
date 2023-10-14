@@ -3,9 +3,11 @@
 import { useSession } from "next-auth/react"
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { getInvoices } from "@/redux/features/invoiceSlice";
+import { getAlerts } from "@/redux/features/alertSlice";
 import { useEffect, useState } from "react";
 import {ThunkDispatch} from "@reduxjs/toolkit";
 import { invoiceType } from "@/redux/features/invoiceSlice";
+import { alertType } from "@/redux/features/alertSlice";
 import { Date } from "mongoose";
 import InvoiceComponent from "@/components/InvoiceComponent";
 import AddInvoiceForm from "@/components/AddInvoiceForm";
@@ -14,11 +16,18 @@ function Dashboard() {
   const { data: session } = useSession();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const invoices = useSelector((store: any) => store.invoice.invoices);
-  const loading = useSelector((store: any) => store.invoice.loading);
+  const loadingInvoices = useSelector((store: any) => store.invoice.loading);
+  const alerts = useSelector((store:any) => store.alert.alerts)
+  const loadingAlerts = useSelector((store:any) => store.alert.loading );
 
   const [waterInvoices, setWaterInvoices] = useState<invoiceType[]>([]);
   const [gasInvoices, setGasInvoices] = useState<invoiceType[]>([]);
   const [electricityInvoices, setElectricityInvoices] = useState<invoiceType[]>([]);
+  
+  const [waterAlerts, setWaterAlerts] = useState<alertType[]>([]);
+  const [gasAlerts, setGasAlerts] = useState<alertType[]>([]);
+  const [electricityAlerts, setElectricityAlerts] = useState<alertType[]>([]);
+
 
   
   
@@ -27,6 +36,7 @@ function Dashboard() {
     if(session?.user){
       const userId = (session?.user as { _id: string })._id;
       dispatch(getInvoices(userId));
+      dispatch(getAlerts(userId));
     }
     
     
@@ -44,7 +54,7 @@ function Dashboard() {
       return 0;
     }
 
-   if(!loading){ const waterArray = invoices
+   if(!loadingInvoices){ const waterArray = invoices
     .filter((invoice: invoiceType) => invoice.service === 'water')
     .sort((a: invoiceType, b: invoiceType) => orderByDate(a.date, b.date));
     setWaterInvoices(waterArray);
@@ -57,9 +67,27 @@ function Dashboard() {
     const electricityArray = invoices
     .filter((invoice:invoiceType) => invoice.service == 'electricity')
     .sort((a: invoiceType, b: invoiceType) => orderByDate(a.date, b.date));
-    setElectricityInvoices(electricityArray);}
+    setElectricityInvoices(electricityArray);
+  }
 
   }, [invoices])
+
+
+  useEffect(() => {
+    if(!loadingAlerts){
+      const waterArray = alerts
+      .filter((alert:alertType) => alert.service == 'water');
+      setWaterAlerts(waterArray);
+      
+      const gasArray = alerts
+      .filter((alert:alertType) => alert.service == 'gas');
+      setGasAlerts(gasArray);
+      
+      const electricityArray = alerts
+      .filter((alert:alertType) => alert.service == 'electricity');
+      setElectricityAlerts(electricityArray);
+    }
+  }, [alerts])
 
   return (
     <div>
@@ -78,6 +106,13 @@ function Dashboard() {
       <AddInvoiceForm user={session?.user} />
       
       <h2>Registros de Agua</h2>
+      <h3>alertas</h3>
+      { waterAlerts.length > 0 ? (waterAlerts.map((alert: alertType) => (
+        <div key={alert._id}>
+          <p> alerta en: {alert.amount}</p>
+        </div >
+      ))):  <p>Sin alerta para agua</p>}
+
       { waterInvoices.length > 0 ? (waterInvoices.map((invoice: invoiceType) => (
         <InvoiceComponent
           key={invoice._id}
@@ -90,6 +125,13 @@ function Dashboard() {
       ))) : <p>Sin registros</p> }
 
       <h2>Registros de Gas</h2>
+      <h3>alertas</h3>
+      { gasAlerts.length > 0 ? (gasAlerts.map((alert: alertType) => (
+        <div key={alert._id}>
+          <p> alerta en: {alert.amount}</p>
+        </div >
+      ))):  <p>Sin alerta para gas</p>}
+
       { gasInvoices.length > 0 ? (gasInvoices.map((invoice: invoiceType) => (
         <InvoiceComponent
           key={invoice._id}
@@ -102,6 +144,13 @@ function Dashboard() {
       ))):  <p>Sin registros</p> }
 
       <h2>Registros de Electricidad</h2>
+      <h3>alertas</h3>
+      { electricityAlerts.length > 0 ? (electricityAlerts.map((alert: alertType) => (
+        <div key={alert._id}>
+          <p> alerta en: {alert.amount}</p>
+        </div >
+      ))):  <p>Sin alerta para electricidad</p>}
+
       {electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
         <InvoiceComponent
           key={invoice._id}
