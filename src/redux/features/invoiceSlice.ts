@@ -57,6 +57,30 @@ export const addInvoice = createAsyncThunk(
   }
 )
 
+export const deleteInvoice = createAsyncThunk(
+  'invoices/deleteInvoice',
+  async (invoice_id: string) => {
+    try {
+      const response = await axios.delete(`/api/invoices?invoice_id=${invoice_id}`);
+
+      if(response.status == 200){
+        toast.success('Factura Eliminada');
+        
+      }else{
+        toast.error('Error eliminando factura')
+      }
+      return response.data
+    } catch (error) {
+      if(error instanceof AxiosError){
+        console.log(error)
+        let message = error.response?.data.message.split(':');
+        toast.error(message[message.length - 1] || 'Ha ocurrido un error');
+        return;
+      }
+    }
+  }
+)
+
 const invoiceSlice = createSlice({
   name: 'invoice',
   initialState,
@@ -90,7 +114,19 @@ const invoiceSlice = createSlice({
     })
     builder.addCase(addInvoice.rejected, (state, action) => {
       state.error = 'Error guardando la factura'
-    } )
+    })
+    builder.addCase(deleteInvoice.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(deleteInvoice.fulfilled, (state, action) => {
+      const deletedInvoice = action.payload.deletedInvoice;
+      const newInvoices = state.invoices.filter((invoice: invoiceType) => invoice._id != deletedInvoice._id )
+      state.invoices = newInvoices
+      state.loading = false
+    })
+    builder.addCase(deleteInvoice.rejected, (state) => {
+      state.error = 'Error eliminando la factura'
+    })
   }
 })
 
