@@ -92,9 +92,6 @@ function Dashboard() {
     }
   }, [alerts])
 
-  const handleAlertDelete = (alert_id: string) => {
-    dispatch(deleteAlert(alert_id));
-  }
 
   return (
     <div>
