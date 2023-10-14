@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, {AxiosError} from 'axios';
 import { Date } from 'mongoose';
 import toast from 'react-hot-toast';
@@ -12,7 +12,7 @@ export type invoiceType = {
   user?: {},
 }
 
-type initialStateType = {
+type invoiceInitialStateType = {
   invoices: invoiceType[],
   loading: boolean,
   error: string | null,
@@ -22,7 +22,7 @@ const initialState = {
   invoices: [],
   loading: false,
   error: null,
-} as initialStateType
+} as invoiceInitialStateType
 
 
 export const getInvoices = createAsyncThunk(
