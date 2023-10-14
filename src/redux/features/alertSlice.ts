@@ -39,6 +39,30 @@ export const getAlerts = createAsyncThunk(
   }
 )
 
+export const addAlert = createAsyncThunk(
+  'alert/addAlert',
+  async (body: any) => {
+    try {
+      const response = await axios.post('/api/alerts', body);
+      if(response.status == 200){
+        toast.success('Alerta creada')
+      }else {
+        toast.error('Error creando alerta')
+      }
+
+      return response.data
+
+    } catch (error) {
+      if(error instanceof AxiosError){
+        console.log(error)
+        let message = error.response?.data.message.split(':');
+        toast.error(message[message.length - 1] || 'Ha ocurrido un error');
+        return;
+      }
+    }
+  }
+)
+
 const alertSlice = createSlice({
   name: 'alert',
   initialState,
@@ -54,6 +78,22 @@ const alertSlice = createSlice({
     builder.addCase(getAlerts.rejected, (state) => {
       state.loading = false;
       state.error = 'Error fetching alerts';
+    })
+    builder.addCase(addAlert.pending, (state) => {
+      state.loading = true;
+    })
+    builder.addCase(addAlert.fulfilled, (state, action) => {
+      const newAlert = action.payload.savedAlert
+      const alertsArray = [
+        ...state.alerts,
+        newAlert
+      ]
+      state.alerts = alertsArray
+      state.loading = false;
+    })
+    builder.addCase(addAlert.rejected, (state) => {
+      state.loading = false;
+      state.error = 'Error guardando alerta';
     })
   }
 })
