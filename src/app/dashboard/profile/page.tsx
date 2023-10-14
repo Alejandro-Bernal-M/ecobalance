@@ -11,6 +11,7 @@ import { alertType } from "@/redux/features/alertSlice";
 import { Date } from "mongoose";
 import InvoiceComponent from "@/components/InvoiceComponent";
 import AddInvoiceForm from "@/components/AddInvoiceForm";
+import AddAlertForm from "@/components/AddAlertForm";
 
 function Dashboard() {
   const { data: session } = useSession();
@@ -104,6 +105,8 @@ function Dashboard() {
       </pre>
 
       <AddInvoiceForm user={session?.user} />
+
+      <AddAlertForm user={session?.user} />
       
       <h2>Registros de Agua</h2>
       <h3>alertas</h3>
