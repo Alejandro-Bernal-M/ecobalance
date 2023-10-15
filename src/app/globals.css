@@ -3,6 +3,7 @@
   --color-2: rgb(11, 24, 4);
   --color-3: #313131;
   --color-4: #e5e5e5;
+  --color-5: #2d5218;
   --space-0: 0.8rem;
   --space-1: 1rem;
   --space-2: 1.5rem;
@@ -17,7 +18,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* color: var(--color-2); */
   font-family: var(--font-family) ;
 }
 
