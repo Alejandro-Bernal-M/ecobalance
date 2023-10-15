@@ -13,7 +13,7 @@ import InvoiceComponent from "@/components/InvoiceComponent";
 import AlertComponent from "@/components/AlertComponent";
 import AddInvoiceForm from "@/components/AddInvoiceForm";
 import AddAlertForm from "@/components/AddAlertForm";
-import { deleteAlert } from "@/redux/features/alertSlice";
+import styles from './profile.module.css'
 
 function Dashboard() {
   const { data: session } = useSession();
@@ -73,7 +73,7 @@ function Dashboard() {
     setElectricityInvoices(electricityArray);
   }
 
-  }, [invoices])
+  }, [invoices, loadingInvoices])
 
 
   useEffect(() => {
@@ -90,23 +90,17 @@ function Dashboard() {
       .filter((alert:alertType) => alert.service == 'electricity');
       setElectricityAlerts(electricityArray);
     }
-  }, [alerts])
+  }, [alerts, loadingAlerts])
 
 
   return (
-    <div>
+    <section className={styles.profile_section}>
       <h1>Perfil</h1>
-
-      <p>Nombre: {session?.user?.name}</p>
-      <p>Correo electrónico: {session?.user?.email}</p>
-
-      <pre>
-        {JSON.stringify(
-          {session
-         },
-           null, 2)}
-      </pre>
-
+      <div className={styles.profile_div}>
+        <p>Bienvenido de nuevo : {session?.user?.name}</p>
+        <p>Correo electrónico: {session?.user?.email}</p>
+      </div>
+      <h2>Agregar Factura</h2>
       <AddInvoiceForm user={session?.user} />
 
       <AddAlertForm user={session?.user} />
@@ -173,7 +167,7 @@ function Dashboard() {
           _id ={invoice._id}
         />
       ))): <p>Sin registros</p>}
-    </div>
+    </section>
     )
 }
 

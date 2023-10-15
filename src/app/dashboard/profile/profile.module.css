@@ -1,0 +1,23 @@
+.profile_section {
+  width: 100%;
+  height: auto !important;
+  /* min-height: 100vh; */
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('../../../assets/background-waves-3.svg');
+  background-repeat: repeat;
+  background-size: cover;
+  color: var(--color-1);
+  padding: var(--space-3);
+  gap: var(--space-3)
+}
+
+.profile_div {
+  width: 80%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

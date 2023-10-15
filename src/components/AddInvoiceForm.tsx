@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { addInvoice } from "@/redux/features/invoiceSlice";
 import { useDispatch } from "react-redux/es/exports";
 import {ThunkDispatch} from "@reduxjs/toolkit";
+import styles from './addInvoiceForm.module.css'
 
 function AddInvoiceForm({user}: any) {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -32,20 +33,32 @@ function AddInvoiceForm({user}: any) {
     
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="service-select"> Seleccione el servicio </label>
-      <select name="service-select" defaultValue={''}>
-        <option value="" ></option>
-        <option value="water" id="water">Agua</option>
-        <option value="gas" id="gas">Gas</option>
-        <option value="electricity" id="electricity">Electricidad</option>
-      </select>
-      <label htmlFor="consumption"> Consumo total </label>
-      <input type="number" name="consumption" placeholder="" />
-      <label htmlFor="amount"> Valor del recibo </label>
-      <input type="number" name="amount" placeholder="" />
-      <label htmlFor="date"> Fecha del recibo </label>
-      <input type="date" name="date" />
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.form_div}>
+        <label htmlFor="service-select"> Seleccione el servicio </label>
+        <select name="service-select" defaultValue={''}>
+          <option value="" ></option>
+          <option value="water" id="water">Agua</option>
+          <option value="gas" id="gas">Gas</option>
+          <option value="electricity" id="electricity">Electricidad</option>
+        </select>
+      </div>
+
+      <div className={styles.form_div}>
+        <label htmlFor="consumption"> Consumo total </label>
+        <input type="number" name="consumption" placeholder="" />
+      </div>
+
+      <div className={styles.form_div}>
+        <label htmlFor="amount"> Valor del recibo </label>
+        <input type="number" name="amount" placeholder="" />
+      </div>
+
+      <div className={styles.form_div}>
+        <label htmlFor="date"> Fecha del recibo </label>
+        <input type="date" name="date" />
+      </div>
+
       <button>
         Añadir
       </button>
