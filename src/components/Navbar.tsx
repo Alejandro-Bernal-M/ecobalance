@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react"
 import { signOut } from "next-auth/react"
 import Link from "next/link";
 import styles from './navbar.module.css';
+import { ImLeaf } from 'react-icons/im';
 
 function Navbar() {
 
@@ -10,7 +11,7 @@ function Navbar() {
   return (
     <nav className={styles.nav}>
       <Link  href="/">
-      Home
+      EcoBalance <ImLeaf />
       </Link>
 
       <ul className={styles.ul}>
