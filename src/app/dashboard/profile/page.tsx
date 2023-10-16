@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import {ThunkDispatch} from "@reduxjs/toolkit";
 import { invoiceType } from "@/redux/features/invoiceSlice";
 import { alertType } from "@/redux/features/alertSlice";
-import { Date } from "mongoose";
 import InvoiceComponent from "@/components/InvoiceComponent";
 import AlertComponent from "@/components/AlertComponent";
 import AddInvoiceForm from "@/components/AddInvoiceForm";
@@ -123,6 +122,7 @@ function Dashboard() {
             service={invoice.service}
             amount={invoice.amount} 
             _id ={invoice._id}
+            alerts={waterAlerts}
           />
         ))) : <p>Sin Recibos</p> }
       </div>
@@ -147,6 +147,7 @@ function Dashboard() {
           service={invoice.service}
           amount={invoice.amount} 
           _id ={invoice._id}
+          alerts={gasAlerts}
           />
           ))):  <p>Sin Recibos</p> }
         </div>
@@ -171,6 +172,7 @@ function Dashboard() {
             service={invoice.service}
             amount={invoice.amount} 
             _id ={invoice._id}
+            alerts={electricityAlerts}
           />
         ))): <p>Sin Recibos</p>}
       </div>

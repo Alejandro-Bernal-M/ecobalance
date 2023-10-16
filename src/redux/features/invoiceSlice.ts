@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, {AxiosError} from 'axios';
-import { Date } from 'mongoose';
 import toast from 'react-hot-toast';
 
 export type invoiceType = {

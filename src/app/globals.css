@@ -34,3 +34,7 @@ h3 {
   color: var(--color-4);
   text-align: center;
 }
+
+.alert {
+  color: red !important;
+}

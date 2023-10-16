@@ -4,9 +4,21 @@ import { useDispatch } from "react-redux"
 import { ThunkDispatch } from "@reduxjs/toolkit"
 import { TiDeleteOutline } from 'react-icons/ti'
 import styles from './InvoiceComponent.module.css'
+import { alertType } from "@/redux/features/alertSlice"
+// import { Date } from "mongoose";
 
-function InvoiceComponent({date, service, amount, consumption, _id}: invoiceType) {
+type invoiceProps = {
+  date: Date,
+  service: string,
+  amount: number,
+  consumption: number,
+  _id: string,
+  alerts: alertType[] 
+}
+
+function InvoiceComponent({date, service, amount, consumption, _id, alerts}: invoiceProps) {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const minAlert = (Math.min(...alerts.map((alert:alertType) => alert.amount)));
   const handleClick = () => {
     dispatch(deleteInvoice(_id))
   }
@@ -38,7 +50,7 @@ function InvoiceComponent({date, service, amount, consumption, _id}: invoiceType
       </div>
       <div className={styles.invoice_div}>
         <p className={styles.invoice_p} >Consumo: </p>
-        <p className={styles.invoice_p}><span>{consumption}{metricValue(service)}</span></p>
+        <p className={styles.invoice_p}>{consumption > minAlert ? <span className= "alert" > {consumption} </span> : <span >{consumption} </span> }{metricValue(service)}</p>
       </div>
       <div className={styles.invoice_div}>
         <p className={styles.invoice_p} >Fecha: </p>
