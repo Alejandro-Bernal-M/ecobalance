@@ -22,8 +22,10 @@ function Dashboard() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const invoices = useSelector((store: any) => store.invoice.invoices);
   const loadingInvoices = useSelector((store: any) => store.invoice.loading);
+  const invoicesError = useSelector((store: any) => store.invoice.error);
   const alerts = useSelector((store:any) => store.alert.alerts)
   const loadingAlerts = useSelector((store:any) => store.alert.loading );
+  const alertsError = useSelector((store: any) => store.alert.error);
 
   const [waterInvoices, setWaterInvoices] = useState<invoiceType[]>([]);
   const [gasInvoices, setGasInvoices] = useState<invoiceType[]>([]);
@@ -111,12 +113,13 @@ function Dashboard() {
           _id={alert._id}
           />
           ))):  <p>Sin alerta para agua.</p>}
+          {alertsError && <p>Error cargando las alertas.</p>}
 
         <h3>Recibos</h3>
         { waterInvoices.length > 0 ? (waterInvoices.map((invoice: invoiceType) => (
           <InvoiceComponent
           key={invoice._id}
-            consumption={invoice.consumption}
+          consumption={invoice.consumption}
             date={invoice.date}
             service={invoice.service}
             amount={invoice.amount} 
@@ -124,6 +127,7 @@ function Dashboard() {
             alerts={waterAlerts}
           />
         ))) : <p>Sin Recibos.</p> }
+        {invoicesError && <p>Error cargando los recibos.</p>}
       </div>
 
       <div className={styles.register_holder}>
@@ -136,6 +140,7 @@ function Dashboard() {
           _id={alert._id}
           />
           ))):  <p>Sin alerta para gas.</p>}
+        {alertsError && <p>Error cargando las alertas.</p>}
 
         <h3>Recibos</h3>
         { gasInvoices.length > 0 ? (gasInvoices.map((invoice: invoiceType) => (
@@ -149,6 +154,7 @@ function Dashboard() {
           alerts={gasAlerts}
           />
           ))):  <p>Sin Recibos.</p> }
+          {invoicesError && <p>Error cargando los recibos.</p>}
         </div>
 
       <div className={styles.register_holder}>
@@ -161,6 +167,7 @@ function Dashboard() {
           _id={alert._id}
           />
           ))):  <p>Sin alerta para energía.</p>}
+        {alertsError && <p>Error cargando las alertas.</p>}
 
         <h3>Recibos</h3>
         {electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
@@ -174,6 +181,7 @@ function Dashboard() {
             alerts={electricityAlerts}
           />
         ))): <p>Sin Recibos.</p>}
+        {invoicesError && <p>Error cargando los recibos.</p>}
       </div>
     </section>
     )
