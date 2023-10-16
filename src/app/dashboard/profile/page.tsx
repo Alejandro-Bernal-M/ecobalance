@@ -104,7 +104,7 @@ function Dashboard() {
       <AddAlertForm user={session?.user} />
       
       <div className={styles.register_holder}>
-        <h2>Registros de Agua</h2>
+        <h2>Recibos de Agua</h2>
         <h3>alertas</h3>
         { waterAlerts.length > 0 ? (waterAlerts.map((alert: alertType) => (
           <AlertComponent key={alert._id}
@@ -114,7 +114,7 @@ function Dashboard() {
           />
           ))):  <p>Sin alerta para agua.</p>}
 
-        <h3>Registros</h3>
+        <h3>Recibos</h3>
         { waterInvoices.length > 0 ? (waterInvoices.map((invoice: invoiceType) => (
           <InvoiceComponent
           key={invoice._id}
@@ -124,11 +124,11 @@ function Dashboard() {
             amount={invoice.amount} 
             _id ={invoice._id}
           />
-        ))) : <p>Sin registros</p> }
+        ))) : <p>Sin Recibos</p> }
       </div>
 
       <div className={styles.register_holder}>
-        <h2>Registros de Gas</h2>
+        <h2>Recibos de Gas</h2>
         <h3>alertas</h3>
         { gasAlerts.length > 0 ? (gasAlerts.map((alert: alertType) => (
           <AlertComponent key={alert._id}
@@ -138,7 +138,7 @@ function Dashboard() {
           />
           ))):  <p>Sin alerta para gas.</p>}
 
-        <h3>Registros</h3>
+        <h3>Recibos</h3>
         { gasInvoices.length > 0 ? (gasInvoices.map((invoice: invoiceType) => (
           <InvoiceComponent
           key={invoice._id}
@@ -148,11 +148,11 @@ function Dashboard() {
           amount={invoice.amount} 
           _id ={invoice._id}
           />
-          ))):  <p>Sin registros</p> }
+          ))):  <p>Sin Recibos</p> }
         </div>
 
       <div className={styles.register_holder}>
-        <h2>Registros de Electricidad</h2>
+        <h2>Recibos de Energía</h2>
         <h3>alertas</h3>
         { electricityAlerts.length > 0 ? (electricityAlerts.map((alert: alertType) => (
         <AlertComponent key={alert._id}
@@ -162,7 +162,7 @@ function Dashboard() {
           />
           ))):  <p>Sin alerta para electricidad.</p>}
 
-        <h3>Registros</h3>
+        <h3>Recibos</h3>
         {electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
           <InvoiceComponent
           key={invoice._id}
@@ -172,7 +172,7 @@ function Dashboard() {
             amount={invoice.amount} 
             _id ={invoice._id}
           />
-        ))): <p>Sin registros</p>}
+        ))): <p>Sin Recibos</p>}
       </div>
     </section>
     )

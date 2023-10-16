@@ -1,0 +1,20 @@
+.alert {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-0);
+  background-color: var(--background-color-2-transparent);
+  padding: var(--space-1);
+  border-radius: 10px;
+}
+
+.delete_icon {
+  color: var(--color-1);
+  cursor: pointer;
+  font-size: var(--font-size-2);
+}
+
+.alert_p span {
+  color: var(--color-4)
+}
