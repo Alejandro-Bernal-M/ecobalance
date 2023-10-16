@@ -28,8 +28,18 @@ const initialState = {
 export const getInvoices = createAsyncThunk(
   'invoice/getInvoices',
   async (user_id:string) => {
+  try {
     const response = await axios.get(`/api/invoices?user_id=${user_id}`)
-    return response.data
+    if(response.status == 200){
+      return response.data
+    }
+  } catch (error) {
+    if(error instanceof AxiosError){
+      console.log(error);
+      toast.error('Error conectando con el servidor');
+      return;
+    }
+  }
   }
 )
 
