@@ -93,78 +93,87 @@ function Dashboard() {
 
   return (
     <section className={styles.profile_section}>
-      <h1>Perfil</h1>
-      <div className={styles.profile_div}>
+      <h1 className={styles.title}>Bienvenido de nuevo : <span>{session?.user?.name}</span></h1>
+      {/* <div className={styles.profile_div}>
         <p>Bienvenido de nuevo : {session?.user?.name}</p>
         <p>Correo electrónico: {session?.user?.email}</p>
-      </div>
+      </div> */}
       
       <AddInvoiceForm user={session?.user} />
 
       <AddAlertForm user={session?.user} />
       
-      <h2>Registros de Agua</h2>
-      <h3>alertas</h3>
-      { waterAlerts.length > 0 ? (waterAlerts.map((alert: alertType) => (
+      <div className={styles.register_holder}>
+        <h2>Registros de Agua</h2>
+        <h3>alertas</h3>
+        { waterAlerts.length > 0 ? (waterAlerts.map((alert: alertType) => (
+          <AlertComponent key={alert._id}
+          service={alert.service}
+          amount={alert.amount}
+          _id={alert._id}
+          />
+          ))):  <p>Sin alerta para agua.</p>}
+
+        <h3>Registros</h3>
+        { waterInvoices.length > 0 ? (waterInvoices.map((invoice: invoiceType) => (
+          <InvoiceComponent
+          key={invoice._id}
+            consumption={invoice.consumption}
+            date={invoice.date}
+            service={invoice.service}
+            amount={invoice.amount} 
+            _id ={invoice._id}
+          />
+        ))) : <p>Sin registros</p> }
+      </div>
+
+      <div className={styles.register_holder}>
+        <h2>Registros de Gas</h2>
+        <h3>alertas</h3>
+        { gasAlerts.length > 0 ? (gasAlerts.map((alert: alertType) => (
+          <AlertComponent key={alert._id}
+          service={alert.service}
+          amount={alert.amount}
+          _id={alert._id}
+          />
+          ))):  <p>Sin alerta para gas.</p>}
+
+        <h3>Registros</h3>
+        { gasInvoices.length > 0 ? (gasInvoices.map((invoice: invoiceType) => (
+          <InvoiceComponent
+          key={invoice._id}
+          consumption={invoice.consumption}
+          date={invoice.date}
+          service={invoice.service}
+          amount={invoice.amount} 
+          _id ={invoice._id}
+          />
+          ))):  <p>Sin registros</p> }
+        </div>
+
+      <div className={styles.register_holder}>
+        <h2>Registros de Electricidad</h2>
+        <h3>alertas</h3>
+        { electricityAlerts.length > 0 ? (electricityAlerts.map((alert: alertType) => (
         <AlertComponent key={alert._id}
           service={alert.service}
           amount={alert.amount}
           _id={alert._id}
-         />
-      ))):  <p>Sin alerta para agua.</p>}
+          />
+          ))):  <p>Sin alerta para electricidad.</p>}
 
-      { waterInvoices.length > 0 ? (waterInvoices.map((invoice: invoiceType) => (
-        <InvoiceComponent
+        <h3>Registros</h3>
+        {electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
+          <InvoiceComponent
           key={invoice._id}
           consumption={invoice.consumption}
           date={invoice.date}
-          service={invoice.service}
-          amount={invoice.amount} 
-          _id ={invoice._id}
-        />
-      ))) : <p>Sin registros</p> }
-
-      <h2>Registros de Gas</h2>
-      <h3>alertas</h3>
-      { gasAlerts.length > 0 ? (gasAlerts.map((alert: alertType) => (
-        <AlertComponent key={alert._id}
-          service={alert.service}
-          amount={alert.amount}
-          _id={alert._id}
-        />
-      ))):  <p>Sin alerta para gas.</p>}
-
-      { gasInvoices.length > 0 ? (gasInvoices.map((invoice: invoiceType) => (
-        <InvoiceComponent
-          key={invoice._id}
-          consumption={invoice.consumption}
-          date={invoice.date}
-          service={invoice.service}
-          amount={invoice.amount} 
-          _id ={invoice._id}
-        />
-      ))):  <p>Sin registros</p> }
-
-      <h2>Registros de Electricidad</h2>
-      <h3>alertas</h3>
-      { electricityAlerts.length > 0 ? (electricityAlerts.map((alert: alertType) => (
-       <AlertComponent key={alert._id}
-        service={alert.service}
-        amount={alert.amount}
-        _id={alert._id}
-        />
-      ))):  <p>Sin alerta para electricidad.</p>}
-
-      {electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
-        <InvoiceComponent
-          key={invoice._id}
-          consumption={invoice.consumption}
-          date={invoice.date}
-          service={invoice.service}
-          amount={invoice.amount} 
-          _id ={invoice._id}
-        />
-      ))): <p>Sin registros</p>}
+            service={invoice.service}
+            amount={invoice.amount} 
+            _id ={invoice._id}
+          />
+        ))): <p>Sin registros</p>}
+      </div>
     </section>
     )
 }
