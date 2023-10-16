@@ -30,8 +30,6 @@ function Dashboard() {
   const [waterAlerts, setWaterAlerts] = useState<alertType[]>([]);
   const [gasAlerts, setGasAlerts] = useState<alertType[]>([]);
   const [electricityAlerts, setElectricityAlerts] = useState<alertType[]>([]);
-
-
   
   
   useEffect(() => {
@@ -100,7 +98,7 @@ function Dashboard() {
         <p>Bienvenido de nuevo : {session?.user?.name}</p>
         <p>Correo electrónico: {session?.user?.email}</p>
       </div>
-      <h2>Agregar Factura</h2>
+      
       <AddInvoiceForm user={session?.user} />
 
       <AddAlertForm user={session?.user} />

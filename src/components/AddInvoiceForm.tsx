@@ -33,10 +33,12 @@ function AddInvoiceForm({user}: any) {
     
   }
   return (
+    <>
+    <h2 className={styles.title}>Agregar Recibo</h2>
     <form onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.form_div}>
         <label htmlFor="service-select"> Seleccione el servicio </label>
-        <select name="service-select" defaultValue={''}>
+        <select className={styles.form_select} name="service-select" defaultValue={''}>
           <option value="" ></option>
           <option value="water" id="water">Agua</option>
           <option value="gas" id="gas">Gas</option>
@@ -46,23 +48,24 @@ function AddInvoiceForm({user}: any) {
 
       <div className={styles.form_div}>
         <label htmlFor="consumption"> Consumo total </label>
-        <input type="number" name="consumption" placeholder="" />
+        <input className={styles.form_input}  type="number" name="consumption" placeholder="" />
       </div>
 
       <div className={styles.form_div}>
         <label htmlFor="amount"> Valor del recibo </label>
-        <input type="number" name="amount" placeholder="" />
+        <input className={styles.form_input} type="number" name="amount" placeholder="" />
       </div>
 
       <div className={styles.form_div}>
         <label htmlFor="date"> Fecha del recibo </label>
-        <input type="date" name="date" />
+        <input className={styles.form_input} type="date" name="date" />
       </div>
 
-      <button>
+      <button className={styles.form_button}>
         Añadir
       </button>
     </form>
+    </>
   )
 }
 

@@ -32,7 +32,7 @@ export const getAlerts = createAsyncThunk(
     } catch (error) {
       if(error instanceof AxiosError){
         console.log(error);
-        toast.error('Ha ocurrido un error');
+        toast.error('Error conectando con el servidor');
         return;
       }
     }
