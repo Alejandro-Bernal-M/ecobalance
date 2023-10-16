@@ -70,8 +70,9 @@ function RegisterPage() {
 }
   
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <section className={styles.section}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h1>Registrarse</h1>
         <label htmlFor="name">Nombre completo</label>
         <input type="text" name="fullname" id="name" />
         <label htmlFor="age">Edad</label>
@@ -82,9 +83,9 @@ function RegisterPage() {
         <input type="password" name="password" id="password" />
         <label htmlFor="password_confirmation">Confirmar contraseña</label>
         <input type="password" name="password_confirmation" id="password_confirmation" />
-        <button type="submit">Registrarse</button>
+        <button type="submit" className={styles.btn}>Registrarse</button>
       </form>
-    </div>
+    </section>
   )
 }
 
