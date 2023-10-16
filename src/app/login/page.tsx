@@ -3,6 +3,7 @@ import { FormEvent } from 'react';
 import toast from 'react-hot-toast'; 
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation'
+import styles from './login.module.css';
 
 function LoginPage() {
 
@@ -44,15 +45,16 @@ function LoginPage() {
 }
   
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <section className={styles.section}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h1>Iniciar sesión</h1>
         <label htmlFor="email">Correo electrónico</label>
         <input type="email" name="email" id="email" />
         <label htmlFor="password">Contraseña</label>
         <input type="password" name="password" id="password" />
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit" className={styles.btn}>Iniciar sesión</button>
       </form>
-    </div>
+    </section>
   )
 }
 
