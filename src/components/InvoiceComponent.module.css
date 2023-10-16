@@ -1,21 +1,30 @@
-.alert {
+.invoice {
   width: 90%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  gap: var(--space-0);
+  gap: var(--space-1);
   background-color: var(--background-color-2-transparent);
   padding: var(--space-1);
   border-radius: 10px;
   flex-wrap: wrap;
 }
 
+.invoice_div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0);
+  justify-content: center;
+  align-items: center;
+}
+
 .delete_icon {
   color: var(--color-1);
   cursor: pointer;
   font-size: var(--font-size-2);
+  width: 30px;
 }
 
-.alert_p span {
+.invoice_p span {
   color: var(--color-4)
 }
