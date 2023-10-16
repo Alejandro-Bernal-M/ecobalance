@@ -12,13 +12,13 @@ export type alertType = {
 type alertInitialStateType = {
   alerts: alertType[],
   loading: boolean,
-  error: string
+  error: boolean
 }
 
 const initialState = {
   alerts: [],
   loading: false,
-  error: ''
+  error: false
 } as alertInitialStateType
 
 export const getAlerts = createAsyncThunk(
@@ -97,10 +97,11 @@ const alertSlice = createSlice({
     builder.addCase(getAlerts.fulfilled, (state, action) => {
       state.alerts = action.payload.alerts;
       state.loading = false;
+      state.error = false;
     })
     builder.addCase(getAlerts.rejected, (state) => {
       state.loading = false;
-      state.error = 'Error fetching alerts';
+      state.error = true;
     })
     builder.addCase(addAlert.pending, (state) => {
       state.loading = true;
@@ -113,10 +114,11 @@ const alertSlice = createSlice({
       ]
       state.alerts = alertsArray
       state.loading = false;
+      state.error = false;
     })
     builder.addCase(addAlert.rejected, (state) => {
       state.loading = false;
-      state.error = 'Error guardando alerta';
+      state.error = true;
     })
     builder.addCase(deleteAlert.pending, (state) => {
       state.loading = true;
@@ -126,9 +128,10 @@ const alertSlice = createSlice({
       const newArray = state.alerts.filter((alert) => alert._id != deletedAlert._id)
       state.alerts = newArray;
       state.loading = false;
+      state.error = false;
     })
     builder.addCase(deleteAlert.rejected, (state) => {
-      state.error = 'Error eliminando alerta';
+      state.error = true;
     })
   }
 })

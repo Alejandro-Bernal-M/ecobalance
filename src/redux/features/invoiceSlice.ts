@@ -14,13 +14,13 @@ export type invoiceType = {
 type invoiceInitialStateType = {
   invoices: invoiceType[],
   loading: boolean,
-  error: string | null,
+  error: boolean,
 }
 
 const initialState = {
   invoices: [],
   loading: false,
-  error: null,
+  error: false,
 } as invoiceInitialStateType
 
 
@@ -102,11 +102,12 @@ const invoiceSlice = createSlice({
     builder.addCase(getInvoices.fulfilled, (state, action) => {
       state.loading = false;
       state.invoices = action.payload.invoices;
+      state.error = false;
     }
     )
     builder.addCase(getInvoices.rejected, (state, action) => {
       state.loading = false;
-      state.error = 'Error fetching invoices';
+      state.error = true;
     }
     )
     builder.addCase(addInvoice.pending, (state) => {
@@ -120,9 +121,10 @@ const invoiceSlice = createSlice({
       ]
       state.invoices = invoices;
       state.loading = false;
+      state.error = false;
     })
     builder.addCase(addInvoice.rejected, (state, action) => {
-      state.error = 'Error guardando la factura'
+      state.error = true;
     })
     builder.addCase(deleteInvoice.pending, (state) => {
       state.loading = true
@@ -130,11 +132,12 @@ const invoiceSlice = createSlice({
     builder.addCase(deleteInvoice.fulfilled, (state, action) => {
       const deletedInvoice = action.payload.deletedInvoice;
       const newInvoices = state.invoices.filter((invoice: invoiceType) => invoice._id != deletedInvoice._id )
-      state.invoices = newInvoices
-      state.loading = false
+      state.invoices = newInvoices;
+      state.loading = false;
+      state.error = false;
     })
     builder.addCase(deleteInvoice.rejected, (state) => {
-      state.error = 'Error eliminando la factura'
+      state.error = true;
     })
   }
 })
