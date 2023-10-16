@@ -12,7 +12,10 @@ import InvoiceComponent from "@/components/InvoiceComponent";
 import AlertComponent from "@/components/AlertComponent";
 import AddInvoiceForm from "@/components/AddInvoiceForm";
 import AddAlertForm from "@/components/AddAlertForm";
-import styles from './profile.module.css'
+import styles from './profile.module.css';
+import { IoIosWater } from  'react-icons/io';
+import { ImFire } from  'react-icons/im'; 
+import { SlEnergy } from 'react-icons/sl'
 
 function Dashboard() {
   const { data: session } = useSession();
@@ -93,17 +96,13 @@ function Dashboard() {
   return (
     <section className={styles.profile_section}>
       <h1 className={styles.title}>Bienvenido de nuevo : <span>{session?.user?.name}</span></h1>
-      {/* <div className={styles.profile_div}>
-        <p>Bienvenido de nuevo : {session?.user?.name}</p>
-        <p>Correo electrónico: {session?.user?.email}</p>
-      </div> */}
       
       <AddInvoiceForm user={session?.user} />
 
       <AddAlertForm user={session?.user} />
       
       <div className={styles.register_holder}>
-        <h2>Recibos de Agua</h2>
+        <h2>Recibos de Agua <IoIosWater className={styles.icons} /> </h2>
         <h3>alertas</h3>
         { waterAlerts.length > 0 ? (waterAlerts.map((alert: alertType) => (
           <AlertComponent key={alert._id}
@@ -124,11 +123,11 @@ function Dashboard() {
             _id ={invoice._id}
             alerts={waterAlerts}
           />
-        ))) : <p>Sin Recibos</p> }
+        ))) : <p>Sin Recibos.</p> }
       </div>
 
       <div className={styles.register_holder}>
-        <h2>Recibos de Gas</h2>
+        <h2>Recibos de Gas  < ImFire className={styles.icons} /></h2>
         <h3>alertas</h3>
         { gasAlerts.length > 0 ? (gasAlerts.map((alert: alertType) => (
           <AlertComponent key={alert._id}
@@ -149,11 +148,11 @@ function Dashboard() {
           _id ={invoice._id}
           alerts={gasAlerts}
           />
-          ))):  <p>Sin Recibos</p> }
+          ))):  <p>Sin Recibos.</p> }
         </div>
 
       <div className={styles.register_holder}>
-        <h2>Recibos de Energía</h2>
+        <h2>Recibos de Energía <SlEnergy className={styles.icons} /></h2>
         <h3>alertas</h3>
         { electricityAlerts.length > 0 ? (electricityAlerts.map((alert: alertType) => (
         <AlertComponent key={alert._id}
@@ -161,7 +160,7 @@ function Dashboard() {
           amount={alert.amount}
           _id={alert._id}
           />
-          ))):  <p>Sin alerta para electricidad.</p>}
+          ))):  <p>Sin alerta para energía.</p>}
 
         <h3>Recibos</h3>
         {electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
@@ -174,7 +173,7 @@ function Dashboard() {
             _id ={invoice._id}
             alerts={electricityAlerts}
           />
-        ))): <p>Sin Recibos</p>}
+        ))): <p>Sin Recibos.</p>}
       </div>
     </section>
     )

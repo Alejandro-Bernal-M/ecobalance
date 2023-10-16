@@ -22,7 +22,7 @@ function AlertComponent({ amount, service, _id}: alertType) {
   }
   return (
     <div className={styles.alert}>
-      <p className={styles.alert_p}>Alerta en : <span>{amount}{metricValue(service)}</span></p>
+      <p className={styles.alert_p}>Alerta en : <span>{amount} {metricValue(service)}</span></p>
       <TiDeleteOutline className={styles.delete_icon} onClick={handleClick} />
     </div>
   )

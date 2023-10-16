@@ -36,3 +36,7 @@
   border-radius: 10px;
   padding: var(--space-3);
 }
+
+.icons {
+  padding-left: 5px;
+}

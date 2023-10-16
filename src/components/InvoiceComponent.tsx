@@ -5,7 +5,6 @@ import { ThunkDispatch } from "@reduxjs/toolkit"
 import { TiDeleteOutline } from 'react-icons/ti'
 import styles from './InvoiceComponent.module.css'
 import { alertType } from "@/redux/features/alertSlice"
-// import { Date } from "mongoose";
 
 type invoiceProps = {
   date: Date,

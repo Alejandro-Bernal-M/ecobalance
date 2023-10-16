@@ -38,7 +38,7 @@ function AddAlertForm({user}: any) {
           <option value="" ></option>
           <option value="water" id="water">Agua</option>
           <option value="gas" id="gas">Gas</option>
-          <option value="electricity" id="electricity">Electricidad</option>
+          <option value="electricity" id="electricity">Energía</option>
         </select>
       </div>
       <div className={styles.form_div}>
