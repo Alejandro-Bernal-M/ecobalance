@@ -40,3 +40,9 @@
 .icons {
   padding-left: 5px;
 }
+
+@media (width < 768px) {
+  .register_holder {
+    width: 100%;
+  }
+}

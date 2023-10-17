@@ -1,5 +1,6 @@
 .nav{
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   height: auto;
   justify-content: space-between;
@@ -11,12 +12,18 @@
   font-weight: 600;
   letter-spacing: 1px;
   font-size: var(--font-size-2);
+  gap: var(--space-2);
 }
 
 .nav a {
   text-decoration: none;
   color: var(--color-2);
   width: 200px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-0);
 }
 
 .ul {
@@ -26,10 +33,13 @@
   color: var(--color-2);
   align-items: center;
   justify-content: center;
+  width: auto;
+  max-width: 350px;
 }
 
 .list_item {
   list-style: none;
+  width: 120px;
 }
 
 .list_item a {
@@ -44,4 +54,22 @@
   border: none;
   cursor: pointer;
   font-size: var(--font-size-1);
+}
+
+.btn:hover {
+  background-color: var(--color-3);
+}
+
+@media (width < 768px) {
+  .nav {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .nav a {
+    width: 100%;
+    justify-content: center;
+  }
 }
