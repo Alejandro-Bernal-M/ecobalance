@@ -18,7 +18,6 @@ import { ImFire } from  'react-icons/im';
 import { SlEnergy } from 'react-icons/sl'
 import { useSyncExternalStore } from 'react';
 import store from "@/redux/store";
-import { stat } from "fs";
 
 function Dashboard() {
   const { data: session } = useSession();
