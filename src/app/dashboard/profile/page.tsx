@@ -18,11 +18,12 @@ import { ImFire } from  'react-icons/im';
 import { SlEnergy } from 'react-icons/sl'
 import { useSyncExternalStore } from 'react';
 import store from "@/redux/store";
+import { stat } from "fs";
 
 function Dashboard() {
   const { data: session } = useSession();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const myStore = useSyncExternalStore(store.subscribe, store.getState);
+  const myStore = useSyncExternalStore(store.subscribe, store.getState, store.getState);
 
   const { invoices, loadingInvoices, invoiceError } = myStore.invoice;
   const { alerts, loadingAlerts, alertError } = myStore.alert;
