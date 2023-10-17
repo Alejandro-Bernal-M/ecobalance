@@ -106,17 +106,22 @@ function Dashboard() {
       <div className={styles.register_holder}>
         <h2>Recibos de Agua <IoIosWater className={styles.icons} /> </h2>
         <h3>alertas</h3>
-        { waterAlerts.length > 0 ? (waterAlerts.map((alert: alertType) => (
+        { !loadingAlerts ? ( waterAlerts.length > 0 ? (waterAlerts.map((alert: alertType) => (
           <AlertComponent key={alert._id}
           service={alert.service}
           amount={alert.amount}
           _id={alert._id}
           />
-          ))):  <p>Sin alerta para agua.</p>}
-          {alertsError && <p>Error cargando las alertas.</p>}
+          ))):  <p>Sin alerta para agua.</p>)
+          :
+          <p>Cargando alertas...</p>
+          }
+          
+          {alertsError && <p>Error cargando las alertas.</p>} 
+
 
         <h3>Recibos</h3>
-        { waterInvoices.length > 0 ? (waterInvoices.map((invoice: invoiceType) => (
+        {!loadingInvoices ?(waterInvoices.length > 0 ? (waterInvoices.map((invoice: invoiceType) => (
           <InvoiceComponent
           key={invoice._id}
           consumption={invoice.consumption}
@@ -126,24 +131,31 @@ function Dashboard() {
             _id ={invoice._id}
             alerts={waterAlerts}
           />
-        ))) : <p>Sin Recibos.</p> }
+        ))) : <p>Sin Recibos.</p>)
+        :
+        <p>Cargando recibos...</p>
+        }
         {invoicesError && <p>Error cargando los recibos.</p>}
       </div>
 
       <div className={styles.register_holder}>
         <h2>Recibos de Gas  < ImFire className={styles.icons} /></h2>
         <h3>alertas</h3>
-        { gasAlerts.length > 0 ? (gasAlerts.map((alert: alertType) => (
+        { !loadingAlerts ? (gasAlerts.length > 0 ? (gasAlerts.map((alert: alertType) => (
           <AlertComponent key={alert._id}
           service={alert.service}
           amount={alert.amount}
           _id={alert._id}
           />
-          ))):  <p>Sin alerta para gas.</p>}
+          ))):  <p>Sin alerta para gas.</p>)
+          :
+          <p>Cargando alertas...</p>
+          }
+
         {alertsError && <p>Error cargando las alertas.</p>}
 
         <h3>Recibos</h3>
-        { gasInvoices.length > 0 ? (gasInvoices.map((invoice: invoiceType) => (
+        {!loadingInvoices ? ( gasInvoices.length > 0 ? (gasInvoices.map((invoice: invoiceType) => (
           <InvoiceComponent
           key={invoice._id}
           consumption={invoice.consumption}
@@ -153,24 +165,30 @@ function Dashboard() {
           _id ={invoice._id}
           alerts={gasAlerts}
           />
-          ))):  <p>Sin Recibos.</p> }
+          ))):  <p>Sin Recibos.</p>)
+          :
+          <p>Cargando recibos...</p>
+          }
           {invoicesError && <p>Error cargando los recibos.</p>}
         </div>
 
       <div className={styles.register_holder}>
         <h2>Recibos de Energía <SlEnergy className={styles.icons} /></h2>
         <h3>alertas</h3>
-        { electricityAlerts.length > 0 ? (electricityAlerts.map((alert: alertType) => (
+        { !loadingAlerts ?  (electricityAlerts.length > 0 ? (electricityAlerts.map((alert: alertType) => (
         <AlertComponent key={alert._id}
           service={alert.service}
           amount={alert.amount}
           _id={alert._id}
           />
-          ))):  <p>Sin alerta para energía.</p>}
+          ))):  <p>Sin alerta para energía.</p>)
+          :
+          <p>Cargando alertas...</p>
+          }
         {alertsError && <p>Error cargando las alertas.</p>}
 
         <h3>Recibos</h3>
-        {electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
+        {!loadingInvoices ? (electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
           <InvoiceComponent
           key={invoice._id}
           consumption={invoice.consumption}
@@ -180,7 +198,10 @@ function Dashboard() {
             _id ={invoice._id}
             alerts={electricityAlerts}
           />
-        ))): <p>Sin Recibos.</p>}
+        ))): <p>Sin Recibos.</p>)
+      :
+      <p>Cargando recibos...</p>
+      }
         {invoicesError && <p>Error cargando los recibos.</p>}
       </div>
     </section>
