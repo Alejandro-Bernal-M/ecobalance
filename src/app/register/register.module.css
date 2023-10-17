@@ -42,3 +42,9 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+@media (width < 768px) {
+  .section {
+    padding-top: 10vh;
+  }
+}
