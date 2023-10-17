@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { addInvoice } from "@/redux/features/invoiceSlice";
 import { useDispatch } from "react-redux/es/exports";
 import {ThunkDispatch} from "@reduxjs/toolkit";
-import styles from './addInvoiceForm.module.css'
+import styles from './AddInvoiceForm.module.css'
 
 function AddInvoiceForm({user}: any) {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
