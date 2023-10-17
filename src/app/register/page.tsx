@@ -55,7 +55,7 @@ function RegisterPage() {
     }
     
     if(res?.ok) {
-      router.push('/dashboard');
+      router.push('/dashboard/profile');
       toast.success('Usuario registrado con éxito');
     }
 

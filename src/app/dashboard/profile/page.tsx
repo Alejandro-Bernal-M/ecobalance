@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react"
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { getInvoices } from "@/redux/features/invoiceSlice";
 import { getAlerts } from "@/redux/features/alertSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {ThunkDispatch} from "@reduxjs/toolkit";
 import { invoiceType } from "@/redux/features/invoiceSlice";
 import { alertType } from "@/redux/features/alertSlice";
@@ -20,12 +20,32 @@ import { SlEnergy } from 'react-icons/sl'
 function Dashboard() {
   const { data: session } = useSession();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const invoices = useSelector((store: any) => store.invoice.invoices);
-  const loadingInvoices = useSelector((store: any) => store.invoice.loading);
-  const invoicesError = useSelector((store: any) => store.invoice.error);
-  const alerts = useSelector((store:any) => store.alert.alerts)
-  const loadingAlerts = useSelector((store:any) => store.alert.loading );
-  const alertsError = useSelector((store: any) => store.alert.error);
+
+  const storeInvoice = useSelector((store: any) => store.invoice || {});
+  console.log('invoice store',storeInvoice);
+  const storeAlert = useSelector((store: any) => store.alert || {});
+  console.log('alert store',storeAlert);
+
+  let invoices: invoiceType[] = useMemo(() => [], []);
+  let alerts: alertType[] = useMemo(() => [], []);
+  let loadingInvoices: boolean = false;
+  let loadingAlerts: boolean = false;
+  let invoicesError: boolean = false;
+  let alertsError: boolean = false;
+
+  if(storeInvoice != null && storeAlert){
+    invoices = storeInvoice.invoices;
+    loadingInvoices = storeInvoice.loading;
+    invoicesError = storeInvoice.error;
+    alerts = storeAlert.alerts
+    loadingAlerts =storeAlert.loading ;
+    alertsError = storeAlert.error;
+
+  }
+
+
+
+  
 
   const [waterInvoices, setWaterInvoices] = useState<invoiceType[]>([]);
   const [gasInvoices, setGasInvoices] = useState<invoiceType[]>([]);
@@ -43,7 +63,6 @@ function Dashboard() {
       dispatch(getInvoices(userId));
       dispatch(getAlerts(userId));
     }
-    
     
   }, [session, dispatch]);
   
