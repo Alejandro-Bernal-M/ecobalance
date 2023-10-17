@@ -16,13 +16,16 @@ import styles from './profile.module.css';
 import { IoIosWater } from  'react-icons/io';
 import { ImFire } from  'react-icons/im'; 
 import { SlEnergy } from 'react-icons/sl'
+import { useSyncExternalStore } from 'react';
+import store from "@/redux/store";
 
 function Dashboard() {
   const { data: session } = useSession();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const myStore = useSyncExternalStore(store.subscribe, store.getState);
 
-  const { invoices, loadingInvoices, invoicesError } = useSelector((store: any) => store.invoice);
-  const { alerts, loadingAlerts, alertsError } = useSelector((store: any) => store.alert);
+  const { invoices, loadingInvoices, invoiceError } = myStore.invoice;
+  const { alerts, loadingAlerts, alertError } = myStore.alert;
 
   const [waterInvoices, setWaterInvoices] = useState<invoiceType[]>([]);
   const [gasInvoices, setGasInvoices] = useState<invoiceType[]>([]);
@@ -114,7 +117,7 @@ function Dashboard() {
           <p>Cargando alertas...</p>
           }
           
-          {alertsError && <p>Error cargando las alertas.</p>} 
+          {alertError && <p>Error cargando las alertas.</p>} 
 
 
         <h3>Recibos</h3>
@@ -132,7 +135,7 @@ function Dashboard() {
         :
         <p>Cargando recibos...</p>
         }
-        {invoicesError && <p>Error cargando los recibos.</p>}
+        {invoiceError && <p>Error cargando los recibos.</p>}
       </div>
 
       <div className={styles.register_holder}>
@@ -149,7 +152,7 @@ function Dashboard() {
           <p>Cargando alertas...</p>
           }
 
-        {alertsError && <p>Error cargando las alertas.</p>}
+        {alertError && <p>Error cargando las alertas.</p>}
 
         <h3>Recibos</h3>
         {!loadingInvoices ? ( gasInvoices.length > 0 ? (gasInvoices.map((invoice: invoiceType) => (
@@ -166,7 +169,7 @@ function Dashboard() {
           :
           <p>Cargando recibos...</p>
           }
-          {invoicesError && <p>Error cargando los recibos.</p>}
+          {invoiceError && <p>Error cargando los recibos.</p>}
         </div>
 
       <div className={styles.register_holder}>
@@ -182,7 +185,7 @@ function Dashboard() {
           :
           <p>Cargando alertas...</p>
           }
-        {alertsError && <p>Error cargando las alertas.</p>}
+        {alertError && <p>Error cargando las alertas.</p>}
 
         <h3>Recibos</h3>
         {!loadingInvoices ? (electricityInvoices.length > 0 ? (electricityInvoices.map((invoice: invoiceType) => (
@@ -199,7 +202,7 @@ function Dashboard() {
       :
       <p>Cargando recibos...</p>
       }
-        {invoicesError && <p>Error cargando los recibos.</p>}
+        {invoiceError && <p>Error cargando los recibos.</p>}
       </div>
     </section>
     )

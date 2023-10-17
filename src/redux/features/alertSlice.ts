@@ -11,14 +11,14 @@ export type alertType = {
 
 type alertInitialStateType = {
   alerts: alertType[],
-  loading: boolean,
-  error: boolean
+  loadingAlerts: boolean,
+  alertError: boolean
 }
 
 const initialState = {
   alerts: [],
-  loading: false,
-  error: false
+  loadingAlerts: false,
+  alertError: false
 } as alertInitialStateType
 
 export const getAlerts = createAsyncThunk(
@@ -92,19 +92,23 @@ const alertSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAlerts.pending, (state) => {
-      state.loading = true;
+      state.loadingAlerts
+   = true;
     })
     builder.addCase(getAlerts.fulfilled, (state, action) => {
       state.alerts = action.payload.alerts;
-      state.loading = false;
-      state.error = false;
+      state.loadingAlerts
+   = false;
+      state.alertError = false;
     })
     builder.addCase(getAlerts.rejected, (state) => {
-      state.loading = false;
-      state.error = true;
+      state.loadingAlerts
+   = false;
+      state.alertError = true;
     })
     builder.addCase(addAlert.pending, (state) => {
-      state.loading = true;
+      state.loadingAlerts
+   = true;
     })
     builder.addCase(addAlert.fulfilled, (state, action) => {
       const newAlert = action.payload.savedAlert
@@ -113,25 +117,29 @@ const alertSlice = createSlice({
         newAlert
       ]
       state.alerts = alertsArray
-      state.loading = false;
-      state.error = false;
+      state.loadingAlerts
+   = false;
+      state.alertError = false;
     })
     builder.addCase(addAlert.rejected, (state) => {
-      state.loading = false;
-      state.error = true;
+      state.loadingAlerts
+   = false;
+      state.alertError = true;
     })
     builder.addCase(deleteAlert.pending, (state) => {
-      state.loading = true;
+      state.loadingAlerts
+   = true;
     })
     builder.addCase(deleteAlert.fulfilled, (state, action) => {
       const deletedAlert = action.payload.deletedAlert
       const newArray = state.alerts.filter((alert) => alert._id != deletedAlert._id)
       state.alerts = newArray;
-      state.loading = false;
-      state.error = false;
+      state.loadingAlerts
+   = false;
+      state.alertError = false;
     })
     builder.addCase(deleteAlert.rejected, (state) => {
-      state.error = true;
+      state.alertError = true;
     })
   }
 })

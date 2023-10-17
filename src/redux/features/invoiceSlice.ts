@@ -13,14 +13,14 @@ export type invoiceType = {
 
 type invoiceInitialStateType = {
   invoices: invoiceType[],
-  loading: boolean,
-  error: boolean,
+  loadingInvoices: boolean,
+  invoiceError: boolean,
 }
 
 const initialState = {
   invoices: [],
-  loading: false,
-  error: false,
+  loadingInvoices: false,
+  invoiceError: false,
 } as invoiceInitialStateType
 
 
@@ -96,22 +96,22 @@ const invoiceSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getInvoices.pending, (state, action) => {
-      state.loading = true;
+      state.loadingInvoices = true;
     }
     )
     builder.addCase(getInvoices.fulfilled, (state, action) => {
-      state.loading = false;
+      state.loadingInvoices = false;
       state.invoices = action.payload.invoices;
-      state.error = false;
+      state.invoiceError = false;
     }
     )
     builder.addCase(getInvoices.rejected, (state, action) => {
-      state.loading = false;
-      state.error = true;
+      state.loadingInvoices = false;
+      state.invoiceError = true;
     }
     )
     builder.addCase(addInvoice.pending, (state) => {
-      state.loading = true;
+      state.loadingInvoices = true;
     })
     builder.addCase(addInvoice.fulfilled, (state, action) => {
       const newInvoice = action.payload.savedInvoice;
@@ -120,24 +120,24 @@ const invoiceSlice = createSlice({
         newInvoice
       ]
       state.invoices = invoices;
-      state.loading = false;
-      state.error = false;
+      state.loadingInvoices = false;
+      state.invoiceError = false;
     })
     builder.addCase(addInvoice.rejected, (state, action) => {
-      state.error = true;
+      state.invoiceError = true;
     })
     builder.addCase(deleteInvoice.pending, (state) => {
-      state.loading = true
+      state.loadingInvoices = true
     })
     builder.addCase(deleteInvoice.fulfilled, (state, action) => {
       const deletedInvoice = action.payload.deletedInvoice;
       const newInvoices = state.invoices.filter((invoice: invoiceType) => invoice._id != deletedInvoice._id )
       state.invoices = newInvoices;
-      state.loading = false;
-      state.error = false;
+      state.loadingInvoices = false;
+      state.invoiceError = false;
     })
     builder.addCase(deleteInvoice.rejected, (state) => {
-      state.error = true;
+      state.invoiceError = true;
     })
   }
 })
